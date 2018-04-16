@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Cliente Taller</title>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand text-center" style="color: rgba(133, 134, 136, 0.932); font-size: 3em; margin: auto;"> Terrorism search engine Colombia 2018 </a>
+    </nav>
+    <h1 class="text-center" style="margin:10px;"><strong>Welcome.</strong>
+        <div id="root" style="color: #424f9b; font-size: 2em;"></div></h1>
+    <div id="login">
+        <h1>Please login.</h1>
+        <p id="googleParagraph">
+            <a class="google-before"><span class="fa fa-google"></span></a>
+            <button class="google" id="loginGoogle">Login Using Google</button>
+        </p>
+        <p><span class="btn-round">or</span></p>
+        <p id="facebookParagraph">
+            <a class="facebook-before"><span class="fa fa-facebook"></span></a>
+            <button class="facebook" id="loginFacebook">Login Using Facebook</button>
+        </p>
+        <p><span class="btn-round">or</span></p>
+        <p id="twitterParagraph">
+            <a class="twitter-before"><span class="fa fa-twitter"></span></a>
+            <button class="twitter" id="loginTwitter">Login Using Twitter</button>
+        </p>
+    </div>
+    <span style="color:rgb(39, 40, 46); font-size:24px" id="texto"></span>
+    <div class="container-fluid">
+        <input id="globalFilter" placeholder="Global Filter" size="30"></input>
+    </div>
+    <div id="tbl" class="container-fluid"></div>
+
+
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+  google.charts.load('current', {packages: ['corechart']});
+
+google.charts.setOnLoadCallback(grafica);
+
+
+  function grafica(){
+
+    var deptcu = new Object ();
+    var zonacu = new Object ();
+    var diacu = new Object ();
+    var armacu = new Object ();
+
+
+
+    $.getJSON("ter_2018.json", function(data) {
+
+    console.log(data); // this will show the info it in firebug console
+    for(var key in data){
+
+      for(var key2 in data[key]){
+        if(key2=='arma_empleada'){
+            if(isNaN(armacu[data[key][key2]])){
+            armacu[data[key][key2]] =0;
+          }else{
+            armacu[data[key][key2]] =Number(armacu[data[key][key2]])+1;
+            }
+        }
+        else if(key2=='departamento'){
+            if(isNaN(deptcu[data[key][key2]])){
+            deptcu[data[key][key2]] =0;
+          }else{
+            deptcu[data[key][key2]] =Number(armacu[data[key][key2]])+1;
+            }
+        }
+        else if(key2=='zona'){
+            if(isNaN(zonacu[data[key][key2]])){
+            zonacu[data[key][key2]] =0;
+          }else{
+            zonacu[data[key][key2]] =Number(armacu[data[key][key2]])+1;
+            }
+        }
+        else if(key2=='d_a'){
+            if(isNaN(diacu[data[key][key2]])){
+            diacu[data[key][key2]] =0;
+          }else{
+            diacu[data[key][key2]] =Number(armacu[data[key][key2]])+1;
+            }
+        }
+
+
+      }
+
+
+
+    }
+    var data_arma="";
+    for(var arma_acu in armacu){
+      data_arma += "\'"+String(arma_acu)+":"+String(armacu[arma_acu])+"\'"+",";
+
+    }
+    var myString = JSON.stringify(data_arma);
+    var data_dept="";
+    for(var dept_acu in deptcu){
+      data_dept += "\'"+String(dept_acu)+":"+String(deptcu[arma_acu])+"\'"+",";
+
+    }
+    var myString = JSON.stringify(data_dept);
+
+    });
+  }
+  </script>
+
+    <script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:400,300'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="primeui-all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script type="text/javascript" src="primeui-all.min.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyDdAMdURead115lm_2_aZVMrM6AO31JPDo",
+        authDomain: "clientetaller-ee1d0.firebaseapp.com",
+        databaseURL: "https://clientetaller-ee1d0.firebaseio.com",
+        projectId: "clientetaller-ee1d0",
+        storageBucket: "clientetaller-ee1d0.appspot.com",
+        messagingSenderId: "91630309503"
+    };
+    firebase.initializeApp(config);
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>
