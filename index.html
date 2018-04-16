@@ -72,21 +72,22 @@ google.charts.setOnLoadCallback(grafica);
             if(isNaN(deptcu[data[key][key2]])){
             deptcu[data[key][key2]] =0;
           }else{
-            deptcu[data[key][key2]] =Number(armacu[data[key][key2]])+1;
+            deptcu[data[key][key2]] =Number(deptcu[data[key][key2]])+1;
             }
         }
         else if(key2=='zona'){
             if(isNaN(zonacu[data[key][key2]])){
             zonacu[data[key][key2]] =0;
           }else{
-            zonacu[data[key][key2]] =Number(armacu[data[key][key2]])+1;
+            zonacu[data[key][key2]] =Number(zonacu[data[key][key2]])+1;
             }
+
         }
         else if(key2=='d_a'){
             if(isNaN(diacu[data[key][key2]])){
             diacu[data[key][key2]] =0;
           }else{
-            diacu[data[key][key2]] =Number(armacu[data[key][key2]])+1;
+            diacu[data[key][key2]] =Number(diacu[data[key][key2]])+1;
             }
         }
 
@@ -101,13 +102,32 @@ google.charts.setOnLoadCallback(grafica);
       data_arma += "\'"+String(arma_acu)+":"+String(armacu[arma_acu])+"\'"+",";
 
     }
-    var myString = JSON.stringify(data_arma);
-    var data_dept="";
-    for(var dept_acu in deptcu){
-      data_dept += "\'"+String(dept_acu)+":"+String(deptcu[arma_acu])+"\'"+",";
+    var jsonarma = JSON.stringify(data_arma);
+    console.log(jsonarma)
+
+    var data_zona="";
+    for(var zona_acu in zonacu){
+      console.log(zona_acu)
+      data_zona += "\'"+String(zona_acu)+":"+String(zonacu[zona_acu])+"\'"+",";
 
     }
-    var myString = JSON.stringify(data_dept);
+    var jsonzona = JSON.stringify(data_zona);
+    console.log(jsonzona)
+
+    var data_dia="";
+    for(var dia_acu in diacu){
+      data_dia += "\'"+String(dia_acu)+":"+String(diacu[dia_acu])+"\'"+",";
+
+    }
+    var jsondpt = JSON.stringify(data_dia);
+
+    var data_dpt="";
+    for(var dpt_acu in deptcu){
+      data_dpt += "\'"+String(dpt_acu)+":"+String(deptcu[dpt_acu])+"\'"+",";
+
+    }
+    var jsondpt = JSON.stringify(data_dpt);
+    console.log(jsondpt)
 
     });
   }
